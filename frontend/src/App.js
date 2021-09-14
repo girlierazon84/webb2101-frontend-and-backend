@@ -43,11 +43,27 @@ function App() {
 
     function createUser(name, age, gender) {
         const payLoad = {
-            "name": "Ada",
-            "age": "19",
-            "gender": "Female"
+            "name": name,
+            "age": age,
+            "gender": gender
         }
         http.post('/users', payLoad)
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
+    function updateUser(id, name, age, gender) {
+        const payLoad = {
+            "id": 14,
+            "name": name,
+            "age": age,
+            "gender": gender
+        }
+        http.put('/users', payLoad)
             .then(function (response) {
                 console.log(response.data)
             })
@@ -68,17 +84,21 @@ function App() {
             </button>
             <button onClick={alive}>alive</button>
             <button onClick={getUsers}>getUsers</button>
-            <button onClick={() => {
-                getUserById(14)
-            }}>getUserById
-            </button>
+            {/*<button onClick={() => {*/}
+            {/*    getUserById(14)*/}
+            {/*}}>getUserById*/}
+            {/*</button>*/}
             <button onClick={function () {
-                getUserById(12)
+                getUserById(14)
             }}>getUserById
             </button>
             <button onClick={function () {
                 createUser("Ada", 18, "Female")
             }}>createUser
+            </button>
+            <button onClick={function () {
+                updateUser(14,"Ada", 19, "Female")
+            }}>updateUser
             </button>
         </div>
     );
