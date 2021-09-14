@@ -30,6 +30,16 @@ function App() {
             })
     }
 
+    function getUserById(id) {
+        http.get(`/users/${ id }`)
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     return (
         <div>
             <h1>Users API with Axios</h1>
@@ -42,6 +52,8 @@ function App() {
             </button>
             <button onClick={ alive }>alive</button>
             <button onClick={ getUsers }>getUsers</button>
+            <button onClick={ () => { getUserById(10) } }>getUserById</button>
+            <button onClick={ function() { getUserById(12) } }>getUserById</button>
         </div>
     );
 }
