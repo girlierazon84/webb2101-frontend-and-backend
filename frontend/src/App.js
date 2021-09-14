@@ -32,7 +32,7 @@ function App() {
     }
 
     function getUserById(id) {
-        http.get(`/users/${id}`)
+        http.get(`/users/${ id }`)
             .then(function (response) {
                 console.log(response.data)
             })
@@ -72,6 +72,16 @@ function App() {
             })
     }
 
+    function deleteUserById(id) {
+        http.delete(`/users/${ id }`)
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     return (
         <div>
             <h1>Users API with Axios</h1>
@@ -99,6 +109,10 @@ function App() {
             <button onClick={function () {
                 updateUser(14,"Ada", 19, "Female")
             }}>updateUser
+            </button>
+            <button onClick={function () {
+                deleteUserById(14)
+            }}>deleteUserById
             </button>
         </div>
     );
