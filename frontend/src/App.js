@@ -1,15 +1,16 @@
 import './App.css';
-import { useState } from "react";
+import {useState} from "react";
 import http from './utils/api/UsersApi'
 
 function App() {
     const [text, setText] = useState('paragraph')
-    function alive(){
+
+    function alive() {
         http.get("/")
             .then(function (response) {
                 console.log(response.data)
                 setText(response.data)
-        })
+            })
             .catch(function (error) {
                 // handle error
                 console.log(error)
@@ -31,7 +32,22 @@ function App() {
     }
 
     function getUserById(id) {
-        http.get(`/users/${ id }`)
+        http.get(`/users/${id}`)
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
+    function createUser(name, age, gender) {
+        const payLoad = {
+            "name": "Ada",
+            "age": "19",
+            "gender": "Female"
+        }
+        http.post('/users', payLoad)
             .then(function (response) {
                 console.log(response.data)
             })
@@ -44,16 +60,26 @@ function App() {
         <div>
             <h1>Users API with Axios</h1>
             <h3>'npm install axios'</h3>
-            <p>{ text }</p>
+            <p>{text}</p>
 
             <button onClick={() => {
                 setText('New Text')
-            }  }>New Text
+            }}>New Text
             </button>
-            <button onClick={ alive }>alive</button>
-            <button onClick={ getUsers }>getUsers</button>
-            <button onClick={ () => { getUserById(10) } }>getUserById</button>
-            <button onClick={ function() { getUserById(12) } }>getUserById</button>
+            <button onClick={alive}>alive</button>
+            <button onClick={getUsers}>getUsers</button>
+            <button onClick={() => {
+                getUserById(14)
+            }}>getUserById
+            </button>
+            <button onClick={function () {
+                getUserById(12)
+            }}>getUserById
+            </button>
+            <button onClick={function () {
+                createUser("Ada", 18, "Female")
+            }}>createUser
+            </button>
         </div>
     );
 }
